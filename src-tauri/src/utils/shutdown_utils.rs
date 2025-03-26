@@ -126,6 +126,14 @@ pub async fn resume_all_processes(app_handle: tauri::AppHandle) -> Result<(), an
     stage_progress += 1;
 
     for _i in 0..2 {
+        if state
+            .is_stopping_processes
+            .load(std::sync::atomic::Ordering::Relaxed)
+        {
+            warn!(target: LOG_TARGET, "Aborting resume process as shutdown has been requested");
+            tokio::time::sleep(std::time::Duration::from_millis(100)).await;
+            continue;
+        }
         match state
             .node_manager
             .ensure_started(

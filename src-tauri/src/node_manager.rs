@@ -125,21 +125,6 @@ impl NodeManager {
                 )
                 .await?;
         }
-        let mut retries = 0;
-        const MAX_RETRIES: usize = 3;
-        loop {
-            match self.wait_ready().await {
-                Ok(_) => break,
-                Err(e) => {
-                    retries += 1;
-                    if retries >= MAX_RETRIES {
-                        return Err(e);
-                    }
-                    error!(target: LOG_TARGET, "Failed to start node, retrying ({}/{}): {}", retries, MAX_RETRIES, e);
-                    tokio::time::sleep(Duration::from_secs(1)).await;
-                }
-            }
-        }
         self.wait_ready().await?;
         Ok(())
     }

@@ -38,9 +38,22 @@ impl TasksTracker {
 
     pub async fn stop_all_processes(app_handle: tauri::AppHandle) {
         let state = app_handle.state::<UniverseAppState>().inner();
+        if state
+            .is_stopping_processes
+            .load(std::sync::atomic::Ordering::SeqCst)
+        {
+            tracing::info!("Already stopping processes");
+            return;
+        }
+        state
+            .is_stopping_processes
+            .store(true, std::sync::atomic::Ordering::SeqCst);
         state.shutdown.clone().trigger();
         let tasks_tracker = Self::current();
         tasks_tracker.close();
         tasks_tracker.wait().await;
+        state
+            .is_stopping_processes
+            .store(false, std::sync::atomic::Ordering::SeqCst);
     }
 }
