@@ -215,28 +215,28 @@ impl SetupManager {
     }
 
     async fn setup_core_phase(&self, app_handle: AppHandle) {
-        let core_phase_setup = Arc::new(CoreSetupPhase::new(app_handle.clone()).await);
+        let core_phase_setup = CoreSetupPhase::new(app_handle.clone()).await;
         core_phase_setup
             .setup(self.core_phase_status.clone(), vec![])
             .await;
     }
 
     async fn setup_hardware_phase(&self, app_handle: AppHandle) {
-        let hardware_phase_setup = Arc::new(HardwareSetupPhase::new(app_handle.clone()).await);
+        let hardware_phase_setup = HardwareSetupPhase::new(app_handle.clone()).await;
         hardware_phase_setup
             .setup(self.hardware_phase_status.clone(), vec![])
             .await;
     }
 
     async fn setup_node_phase(&self, app_handle: AppHandle) {
-        let node_phase_setup = Arc::new(NodeSetupPhase::new(app_handle.clone()).await);
+        let node_phase_setup = NodeSetupPhase::new(app_handle.clone()).await;
         node_phase_setup
             .setup(self.node_phase_status.clone(), vec![])
             .await;
     }
 
     async fn setup_wallet_phase(&self, app_handle: AppHandle) {
-        let wallet_phase_setup = Arc::new(WalletSetupPhase::new(app_handle.clone()).await);
+        let wallet_phase_setup = WalletSetupPhase::new(app_handle.clone()).await;
         wallet_phase_setup
             .setup(
                 self.wallet_phase_status.clone(),
@@ -246,7 +246,7 @@ impl SetupManager {
     }
 
     async fn setup_unknown_phase(&self, app_handle: AppHandle) {
-        let unknown_phase_setup = Arc::new(UnknownSetupPhase::new(app_handle.clone()).await);
+        let unknown_phase_setup = UnknownSetupPhase::new(app_handle.clone()).await;
         unknown_phase_setup
             .setup(
                 self.unknown_phase_status.clone(),

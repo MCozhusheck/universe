@@ -106,7 +106,7 @@ impl SetupPhaseImpl for CoreSetupPhase {
     }
 
     async fn setup(
-        self: Arc<Self>,
+        self: Self,
         status_sender: Sender<PhaseStatus>,
         mut flow_subscribers: Vec<Receiver<PhaseStatus>>,
     ) {

@@ -110,7 +110,7 @@ impl SetupPhaseImpl for HardwareSetupPhase {
     }
 
     async fn setup(
-        self: std::sync::Arc<Self>,
+        self: Self,
         status_sender: Sender<PhaseStatus>,
         mut flow_subscribers: Vec<Receiver<PhaseStatus>>,
     ) {

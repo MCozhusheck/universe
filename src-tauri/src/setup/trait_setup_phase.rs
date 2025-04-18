@@ -38,7 +38,7 @@ pub trait SetupPhaseImpl {
     fn create_progress_stepper(app_handle: AppHandle) -> ProgressStepper;
     async fn load_app_configuration() -> Result<Self::AppConfiguration, Error>;
     async fn setup(
-        self: Arc<Self>,
+        self: Self,
         status_sender: Sender<PhaseStatus>,
         flow_subscribers: Vec<Receiver<PhaseStatus>>,
     );

@@ -103,7 +103,7 @@ impl SetupPhaseImpl for WalletSetupPhase {
     }
 
     async fn setup(
-        self: std::sync::Arc<Self>,
+        self: Self,
         status_sender: Sender<PhaseStatus>,
         mut flow_subscribers: Vec<Receiver<PhaseStatus>>,
     ) {
